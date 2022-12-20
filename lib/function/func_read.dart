@@ -14,21 +14,31 @@ class ListCloud {
 Future<List<ListCloud>> read(query) async {
   List<ListCloud> dataList = <ListCloud>[];
   ListCloud tmpData;
-  var data = [
-      {
-        "id": "1",
-        "title": "Monyet",
-        "desc": "Ini Monyet",
-        "img": "https://client-server-nova.000webhostapp.com/archive/monyet.jpg"
-    },
-    {
-        "id": "2",
-        "title": "Kucing",
-        "desc": "Ini Kucing Lucu",
-        "img": "https://client-server-nova.000webhostapp.com/archive/kucing.jpg"
-    },
-  ];
+  final response = await Dio().get(
+    "https://tifrp20a.my.id/7/login.php",
+    queryParameters:{
+      "key": query.toString(),
+    }
+  );
+  log("test query: $query");
+  log("test read data: ${response.data[0]}");
+  var data = response.data;
   log("test decode: ${data[0]}");
+  // var data = [
+  //     {
+  //       "id": "1",
+  //       "title": "Monyet",
+  //       "desc": "Ini Monyet",
+  //       "img": "https://client-server-nova.000webhostapp.com/archive/monyet.jpg"
+  //   },
+  //   {
+  //       "id": "2",
+  //       "title": "Kucing",
+  //       "desc": "Ini Kucing Lucu",
+  //       "img": "https://client-server-nova.000webhostapp.com/archive/kucing.jpg"
+  //   },
+  // ];
+  // log("test decode: ${data[0]}");
 
   if (data.length == 0) {
     return dataList;

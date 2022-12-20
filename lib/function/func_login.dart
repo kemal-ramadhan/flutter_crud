@@ -20,8 +20,17 @@ Future<dynamic> login(context, username, password) async {
   }else{
   //tampil loading jika username dan password tidak kosong
   isLoading(context);
+  response = await Dio().get(
+    "https://tifrp20a.my.id/7/login.php",
+    queryParameters: {
+      "user": username.toString(),
+      "pwd": password.toString(),
+    }
+  );
+  List data = response!.data;
+  log("Cek Sebelum id $data");
   //jika username bukan user dan password bukan qwerty, jalankan fungsi handle pada file handleNull.
-  if (user != "user" && pwd !="qwerty") {
+  if (data!.isEmpty) {
    log("If ketiga");
     Navigator.pop(context);
     handle("Usernama atau password salah!");

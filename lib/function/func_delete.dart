@@ -27,6 +27,14 @@ delete(BuildContext context, title, id) {
 deleteImage(context, idData) async {
   //loading lalu pushnamed ke fungsi read
   isLoading(context);
+  FormData SendData = FormData.fromMap({
+    "idnews": idData.toString(),
+  });
+
+  final response = await Dio().post(
+    "http://tifrp20a.my.id/7/deletenews.php", data: sendData
+  );
+  log("test send data :" + idData.toString());
   return Navigator.of(context)
       .pushNamedAndRemoveUntil('/read', (Route<dynamic> route) => false);
 }
